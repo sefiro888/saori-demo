@@ -1,0 +1,143 @@
+/* ============================================================
+   PREMIUM · capa final de refinamiento visual
+   ============================================================ */
+:root{
+  --ivory:#fffbf8; --champ:#f7efe8; --ink:#2b1230; --muted:#7a6577;
+  --hair:rgba(200,150,46,.28);
+}
+body{background:var(--ivory);color:var(--ink);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:500;letter-spacing:-.01em}
+h2{font-size:clamp(2.1rem,4.4vw,3.4rem)}
+
+/* ---------- barra superior: fina y elegante ---------- */
+.topbar{background:#12060f;color:var(--gold2);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid rgba(233,196,106,.2)}
+.ticker-track{padding:9px 0;gap:80px}
+
+/* ---------- logo: versión clara sobre oscuro, sin "píldora" ---------- */
+.brand{display:block}
+.lg-dark{display:none}
+.brand img{height:52px;width:auto}
+.site-top.scrolled .brand img{height:44px}
+.site-top.is-dark:not(.scrolled):not(.menu-open) .brand{background:none;padding:0;box-shadow:none;border-radius:0}
+.site-top.is-dark:not(.scrolled):not(.menu-open) .brand img{filter:none}
+.site-top.is-dark:not(.scrolled):not(.menu-open) .lg-light{display:none}
+.site-top.is-dark:not(.scrolled):not(.menu-open) .lg-dark{display:block}
+.site-top.menu-open .lg-light{display:none}.site-top.menu-open .lg-dark{display:block}
+.site-top.menu-open .brand img{filter:none}
+.hdr-in{padding:14px 40px}
+.site-top.scrolled .hdr,.site-top.menu-open .hdr{background:rgba(255,251,248,.9)}
+.dnav>a,.mega-btn{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+
+/* ---------- botones ---------- */
+.btn{letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;font-weight:700;padding:16px 32px;border-radius:999px}
+.btn-gold{background:linear-gradient(135deg,#a97a22 0%,#e9c46a 45%,#c8962e 70%,#a97a22 100%);background-size:200% 100%;box-shadow:0 18px 30px -16px rgba(168,119,27,.8),inset 0 1px 0 rgba(255,255,255,.45);color:#2b1230}
+.btn-gold:hover{background-position:100% 0}
+.btn-ghost{border:1px solid rgba(122,43,191,.55)}
+.hdr-cta{padding:12px 26px}
+
+/* ---------- etiquetas con filetes dorados ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:.68rem;letter-spacing:.32em}
+.eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.head .eyebrow{justify-content:center}
+.head .eyebrow::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.pill{letter-spacing:.2em;font-size:.64rem;padding:7px 18px}
+
+/* ---------- secciones: marfil y champán, menos rosa chicle ---------- */
+.sec,.section{padding:110px 0}
+.tint,.sec.tint{background:linear-gradient(180deg,#faf1ec,#fffaf6)}
+.sec.alt{background:linear-gradient(180deg,#fffbf8,#f8efe9)}
+.reels-sec{background:linear-gradient(180deg,#fffbf8,#f8efe9 60%,#fffbf8)}
+
+/* ---------- tarjetas: línea fina y sombra suave ---------- */
+.card,.ben,.care,.faq,.steps li,.facts,.zone,.total{box-shadow:0 1px 0 rgba(200,150,46,.18),0 30px 60px -42px rgba(50,15,45,.5);border:1px solid rgba(200,150,46,.16)}
+.card{border-radius:22px}
+.card:hover,.ben:hover{box-shadow:0 1px 0 rgba(200,150,46,.3),0 40px 70px -40px rgba(50,15,45,.6)}
+.card-b{padding:22px 24px 26px}
+.card h3{font-size:1.55rem}
+.tag{letter-spacing:.22em}
+.more{letter-spacing:.1em;font-size:.72rem;text-transform:uppercase}
+.photo-card img,.ba,.arch,.promo-img img{border-color:#fff}
+.photo-tag{letter-spacing:.22em;font-size:.66rem}
+
+/* ---------- hero de portada: más sobrio ---------- */
+.home .hero h1{font-size:clamp(2.8rem,6vw,5.2rem);line-height:1.02}
+.home .hero .eyebrow{color:var(--gold2)}
+.home .hero-stats li{background:rgba(255,255,255,.05);border:1px solid rgba(233,196,106,.28);border-radius:14px}
+.home .hero-stats b{font-weight:500}
+.home .chip{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(20,5,15,.35);border:1px solid rgba(233,196,106,.45)}
+
+/* ---------- banda de tecnologías ---------- */
+.band{background:#12060f;border-block:1px solid rgba(233,196,106,.25);font-size:1.15rem;letter-spacing:.3em;padding:18px 0}
+
+/* ---------- cabeceras de servicio ---------- */
+.shero h1{font-weight:500}
+.crumbs{letter-spacing:.06em}
+.factbar .facts{border-radius:18px}
+.fact b{font-weight:600}
+.subnav a{letter-spacing:.08em}
+
+/* ---------- pie ---------- */
+.footer img{height:64px;filter:none}
+
+/* ---------- reels: móvil y táctil ---------- */
+.reel-shield{position:absolute;inset:0;z-index:5;background:transparent;border:0;cursor:pointer;display:none}
+.reel-shield span{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(233,196,106,.6);color:#fff;font:700 .66rem 'Montserrat';letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;backdrop-filter:blur(8px)}
+@media(hover:none),(max-width:960px){.reel-shield{display:block}}
+.reel.live .reel-shield{display:none}
+.rail-nav{display:none;align-items:center;justify-content:center;gap:18px;margin-top:-6px;padding-bottom:6px}
+.rail-nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--violet);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 12px 24px -14px rgba(60,20,70,.6)}
+.rail-nav button:active{transform:scale(.94)}
+.rail-count{font:600 .8rem 'Montserrat';letter-spacing:.16em;color:var(--muted);min-width:64px;text-align:center}
+.rail-dots{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.rail-dots i{width:6px;height:6px;border-radius:50%;background:rgba(122,43,191,.25);transition:.3s}
+.rail-dots i.on{width:22px;border-radius:6px;background:linear-gradient(90deg,var(--gold),var(--pink))}
+@media(max-width:960px){
+  .rail-nav{display:flex}
+  .rail{padding-inline:calc((100vw - min(78vw,300px))/2);gap:18px}
+  .hdr-in{padding:12px 18px}
+}
+
+/* ============================================================
+   PRESENTACIÓN · rediseño sobrio (cortinas + logo + destello)
+   ============================================================ */
+.splash{background:transparent;clip-path:none;transition:none}
+.splash.out{clip-path:none}
+.sp-panel{position:absolute;left:0;right:0;height:50.3%;background:#0c050e;z-index:0;transition:transform 1.5s cubic-bezier(.76,0,.16,1)}
+.sp-top{top:0;background:linear-gradient(180deg,#09030b,#1b0c20)}
+.sp-bot{bottom:0;background:linear-gradient(0deg,#09030b,#1b0c20)}
+.splash.out .sp-top{transform:translateY(-101%)}
+.splash.out .sp-bot{transform:translateY(101%)}
+#splashCv{z-index:1}
+.sp-frame{position:absolute;inset:26px;border:1px solid rgba(233,196,106,.28);opacity:0;animation:fadein 1.6s .2s forwards;pointer-events:none;z-index:1}
+.sp-frame::before,.sp-frame::after{content:"";position:absolute;width:26px;height:26px;border:1px solid var(--gold2)}
+.sp-frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.sp-frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.sp-center{z-index:2;gap:0}
+.sp-center::before{content:"";position:absolute;width:min(620px,110vw);aspect-ratio:1;background:radial-gradient(circle,rgba(233,196,106,.16),transparent 62%);opacity:0;animation:fadein 2.4s .4s forwards}
+.sp-logo{position:relative;width:min(400px,68vw);opacity:0;transform:translateY(22px) scale(.97);filter:blur(10px);animation:spLogo 2s .35s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes spLogo{to{opacity:1;transform:none;filter:blur(0)}}
+.sp-logo img{display:block;width:100%;filter:drop-shadow(0 14px 44px rgba(233,196,106,.22))}
+.sp-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,rgba(255,243,200,.9) 50%,transparent 62%);background-size:300% 100%;background-position:160% 0;-webkit-mask:url(assets/lotus-saori.png) center/contain no-repeat;mask:url(assets/lotus-saori.png) center/contain no-repeat;animation:spShine 1.9s 2.2s ease-in-out forwards}
+@keyframes spShine{to{background-position:-60% 0}}
+.sp-line{width:0;height:1px;margin:30px 0 18px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);animation:spLine 1.4s 1.7s ease forwards}
+@keyframes spLine{to{width:min(220px,50vw)}}
+.sp-tag{font:600 .7rem 'Montserrat';letter-spacing:.5em;text-transform:uppercase;color:var(--gold2);margin:0;min-height:1em}
+.sp-skip{left:50%;right:auto;top:auto;bottom:46px;transform:translateX(-50%);padding:8px 4px;font:600 .68rem 'Montserrat';letter-spacing:.5em;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(233,196,106,.5);opacity:0;animation:fadein 1s 2.6s forwards;z-index:3}
+.sp-skip:hover{color:var(--gold2)}
+.splash.out .sp-center,.splash.out .sp-frame,.splash.out #splashCv,.splash.out .sp-skip{opacity:0!important;transition:opacity .6s;animation:none}
+@media(max-width:600px){
+  .sp-frame{inset:14px}
+  .sp-tag{letter-spacing:.3em;font-size:.62rem;white-space:nowrap}
+  .sp-logo{width:74vw}
+}
+.home .hero{background-position:92% center}
+.home .hero::before{background:linear-gradient(95deg,rgba(14,4,12,.97) 0%,rgba(24,7,30,.88) 40%,rgba(24,7,30,.4) 64%,rgba(14,4,12,.05) 100%),linear-gradient(0deg,rgba(14,4,12,.7),transparent 30%)}
+.home .hero-stats{flex-wrap:nowrap;gap:12px}
+.home .hero-stats li{padding:12px 16px;min-width:0}
+.home .hero-stats span{font-size:.68rem;letter-spacing:.04em}
+@media(max-width:960px){.home .hero{background-position:70% 10%}.home .hero-stats{flex-wrap:wrap}}
+.brand img{height:60px}.site-top.scrolled .brand img{height:50px}
+@media(max-width:960px){.brand img{height:50px}.site-top.scrolled .brand img{height:44px}}
+.tab.on,.case.on,.subnav a.on,.steps span,.faq-q i,.photo-tag,.zone.on{background:linear-gradient(135deg,#3a1450,#7a2a6a)}
+.faq-q i{color:#f3d58a}.steps span{color:#f3d58a;border:1px solid rgba(233,196,106,.5)}
+.tab,.case{border-color:rgba(200,150,46,.4)}

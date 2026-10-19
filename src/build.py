@@ -47,7 +47,7 @@ def header(prefix="", dark=False):
 <div class="site-top{' is-dark' if dark else ''}" id="siteTop">
   <div class="topbar" aria-label="Información destacada"><div class="ticker"><div class="ticker-track">{ticker_items()}</div></div></div>
   <header class="hdr" id="hdr"><div class="hdr-in">
-    <a href="{prefix}index.html" class="brand" aria-label="Inicio"><img src="{prefix}assets/logo.png" alt="Saori Experiencias"></a>
+    <a href="{prefix}index.html" class="brand" aria-label="Inicio"><img class="lg-light" src="{prefix}assets/logo.png" alt="Saori Experiencias"><img class="lg-dark" src="{prefix}assets/logo-light.png" alt=""></a>
     <nav class="dnav" aria-label="Principal">
       <a href="{prefix}index.html#diagnostico">Diagnóstico</a>
       <div class="has-mega" id="hasMega">
@@ -85,7 +85,7 @@ def footer(prefix=""):
         cols += f'<div><h4>{E(title)}</h4>' + "".join(f'<a href="{prefix}{s}.html">{E(BY_SLUG[s]["name"])}</a>' for s in slugs) + '</div>'
     return f'''<footer class="footer">
   <div class="foot-in">
-    <div class="foot-brand"><img src="{prefix}assets/logo.png" alt="Saori Experiencias">
+    <div class="foot-brand"><img src="{prefix}assets/logo-light.png" alt="Saori Experiencias">
       <p>En Centro de Estética Avanzada Saori te ayudamos a cuidar tu piel. Lo último en tratamientos faciales con las últimas tecnologías.</p>
       <div class="foot-soc"><a href="https://www.instagram.com/esteticasaori/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@esteticarocioguti" target="_blank" rel="noopener">TikTok</a><a href="https://www.facebook.com/esteticasaorihuelva" target="_blank" rel="noopener">Facebook</a></div></div>
     {cols}
@@ -97,7 +97,8 @@ def footer(prefix=""):
 <a class="wa-float" href="{DIAG}" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff"><path d="M16 3a13 13 0 0 0-11 19.8L3 29l6.4-2A13 13 0 1 0 16 3zm0 2.4a10.6 10.6 0 1 1-5.6 19.6l-.4-.2-3.8 1.2 1.2-3.7-.3-.4A10.6 10.6 0 0 1 16 5.4zm-3.7 5.2c-.3 0-.7.1-1 .5-.4.4-1.4 1.4-1.4 3.3s1.4 3.8 1.6 4.1c.2.3 2.8 4.4 6.9 6 3.4 1.3 4.1 1 4.8.9.8-.1 2.4-1 2.7-2 .3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5l-2.5-1.2c-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8l.6-.7c.2-.2.2-.4.4-.6.1-.2.1-.5 0-.7l-1.1-2.7c-.3-.7-.6-.6-.8-.6z"/></svg>
 </a>
-<script src="{prefix}app.js"></script>'''
+<script src="{prefix}app.js"></script>
+<script src="{prefix}premium.js"></script>'''
 
 def head(title, desc, prefix=""):
     return f'''<!doctype html>
@@ -114,6 +115,7 @@ def head(title, desc, prefix=""):
 <link rel="stylesheet" href="{prefix}styles.css">
 <link rel="stylesheet" href="{prefix}site.css">
 <link rel="stylesheet" href="{prefix}extra.css">
+<link rel="stylesheet" href="{prefix}premium.css">
 </head>'''
 
 
@@ -122,7 +124,8 @@ def reel_card(key):
     net = "Instagram" if r["net"] == "ig" else "TikTok"
     if r["net"] == "ig":
         screen = (f'<div class="reel-skel"><span>{net}</span><i></i></div>'
-                  f'<iframe title="{E(r["title"])}" loading="lazy" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>')
+                  f'<iframe title="{E(r["title"])}" loading="lazy" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>'
+                  f'<button class="reel-shield" type="button" aria-label="Reproducir: {E(r["title"])}"><span>Toca para reproducir</span></button>')
         attr = f' data-embed="{R.embed(r)}"'
     else:
         screen = (f'<a class="reel-poster" href="{R.url(r)}" target="_blank" rel="noopener" aria-label="Ver en TikTok: {E(r["title"])}">'
@@ -271,7 +274,7 @@ def build():
             f.write(service_page(sv))
     # home
     tpl = open(os.path.join(ROOT, "src", "home.tpl.html"), encoding="utf-8").read()
-    tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="extra.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer() + '\n<script src="splash.js"></script>')
+    tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="premium.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer() + '\n<script src="splash.js"></script>')
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(tpl)
     print("ok", len(SERVICES) + 1, "páginas")
