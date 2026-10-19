@@ -113,6 +113,7 @@ def head(title, desc, prefix=""):
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{prefix}styles.css">
 <link rel="stylesheet" href="{prefix}site.css">
+<link rel="stylesheet" href="{prefix}extra.css">
 </head>'''
 
 
@@ -270,7 +271,7 @@ def build():
             f.write(service_page(sv))
     # home
     tpl = open(os.path.join(ROOT, "src", "home.tpl.html"), encoding="utf-8").read()
-    tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer())
+    tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="extra.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer() + '\n<script src="splash.js"></script>')
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(tpl)
     print("ok", len(SERVICES) + 1, "páginas")
