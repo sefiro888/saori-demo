@@ -131,27 +131,46 @@
       ['cuello', 'Cuello y perfil: efecto lifting y firmeza.'],
       ['poros', 'Textura de la piel: poros más refinados y piel más lisa.']
     ];
+    let cur = 0, anim = 0, touched = false;
+    const lbl1 = $('#lbl1'), lbl2 = $('#lbl2'), count = $('#baCount');
+    const paint = v => { setBA(v); lbl1.style.opacity = v < 18 ? 0 : 1; lbl2.style.opacity = v > 82 ? 0 : 1; };
+    const goTo = (v, ms = 600) => {
+      cancelAnimationFrame(anim);
+      const from = +range.value, t0 = performance.now();
+      const run = t => { const p = Math.min((t - t0) / ms, 1), e = 1 - Math.pow(1 - p, 3); range.value = from + (v - from) * e; paint(+range.value); if (p < 1) anim = requestAnimationFrame(run); };
+      anim = requestAnimationFrame(run);
+    };
+    CASES.forEach(([k]) => { ['antes', 'despues'].forEach(t => { new Image().src = `assets/${k}-${t}.jpg?v=3`; }); });
     const loadCase = i => {
-      const [k, note] = CASES[i], probe = new Image();
+      cur = (i + CASES.length) % CASES.length;
+      const [k, note] = CASES[cur], probe = new Image();
+      ba.classList.add('swap');
       probe.onload = () => {
         const r = probe.naturalWidth / probe.naturalHeight;
-        ba.style.aspectRatio = r; ba.style.maxWidth = r < 1.1 ? Math.round(400 * r + 80) + 'px' : '';
-        $('#baAfter').src = `assets/${k}-despues.jpg?v=2`; bimg.src = `assets/${k}-antes.jpg?v=2`;
-        range.value = 50; setBA(50);
+        ba.style.aspectRatio = Math.min(Math.max(r, 1.2), 1.6); $('#baBg').style.backgroundImage = `url(assets/${k}-despues.jpg?v=3)`;
+        $('#baAfter').src = `assets/${k}-despues.jpg?v=3`; bimg.src = `assets/${k}-antes.jpg?v=3`;
+        cancelAnimationFrame(anim); range.value = 50; paint(50);
+        ba.classList.remove('swap');
+        if (touched) return;
+        goTo(15, 500); setTimeout(() => { if (!touched) goTo(50, 700); }, 650);
       };
-      probe.src = `assets/${k}-antes.jpg?v=2`;
-      $('#caseNote').textContent = note;
-      $$('.case').forEach(c => c.classList.toggle('on', +c.dataset.i === i));
+      probe.src = `assets/${k}-antes.jpg?v=3`;
+      $('#caseNote').textContent = note; count.textContent = `${cur + 1} / ${CASES.length}`;
+      $$('.case').forEach(c => { const on = +c.dataset.i === cur; c.classList.toggle('on', on); c.setAttribute('aria-selected', on); });
     };
     $('#cases').addEventListener('click', e => { const c = e.target.closest('.case'); if (c) loadCase(+c.dataset.i); });
+    $('#baPrev').addEventListener('click', () => loadCase(cur - 1));
+    $('#baNext').addEventListener('click', () => loadCase(cur + 1));
+    $$('.ba-snap').forEach(b => b.addEventListener('click', () => { touched = true; goTo(+b.dataset.v); }));
+    const stop = () => { touched = true; cancelAnimationFrame(anim); };
+    range.addEventListener('pointerdown', stop);
+    range.addEventListener('input', () => { stop(); paint(+range.value); });
     $('#caseNote').textContent = CASES[0][1];
-    range.addEventListener('input', () => setBA(+range.value));
-    setBA(50);
+    paint(50);
     new IntersectionObserver((es, ob) => es.forEach(e => {
       if (!e.isIntersecting) return; ob.disconnect();
-      const t0 = performance.now();
-      const run = t => { const p = (t - t0) / 2200; if (p > 1) { range.value = 50; setBA(50); return; } const v = 50 + Math.sin(p * Math.PI * 2) * 30; range.value = v; setBA(v); requestAnimationFrame(run); };
-      requestAnimationFrame(run);
+      if (touched) return;
+      range.value = 50; goTo(12, 900); setTimeout(() => { if (!touched) goTo(88, 1400); }, 1000); setTimeout(() => { if (!touched) goTo(50, 900); }, 2500);
     }), { threshold: .5 }).observe(ba);
   }
 

@@ -230,24 +230,34 @@
       <p class="eyebrow">Resultados reales</p>
       <h2>Antes <span class="script">&amp; después</span></h2>
       <p>Desliza para ver la transformación de cada caso real: reafirmación, textura y luminosidad de la piel.</p>
-      <div class="cases" id="cases">
-        <button class="case on" data-i="0">Abdomen 1</button>
-        <button class="case" data-i="1">Abdomen 2</button>
-        <button class="case" data-i="2">Abdomen 3</button>
-        <button class="case" data-i="3">Rostro</button>
-        <button class="case" data-i="4">Cuello y perfil</button>
-        <button class="case" data-i="5">Poros</button>
+      <div class="cases" id="cases" role="tablist">
+        <button class="case on" data-i="0" aria-label="Abdomen 1"><img src="assets/abdomen-despues.jpg?v=3" alt="" loading="lazy"><span>Abdomen 1</span></button>
+        <button class="case" data-i="1" aria-label="Abdomen 2"><img src="assets/abdomen2-despues.jpg?v=3" alt="" loading="lazy"><span>Abdomen 2</span></button>
+        <button class="case" data-i="2" aria-label="Abdomen 3"><img src="assets/abdomen3-despues.jpg?v=3" alt="" loading="lazy"><span>Abdomen 3</span></button>
+        <button class="case" data-i="3" aria-label="Rostro"><img src="assets/rostro-despues.jpg?v=3" alt="" loading="lazy"><span>Rostro</span></button>
+        <button class="case" data-i="4" aria-label="Cuello y perfil"><img src="assets/cuello-despues.jpg?v=3" alt="" loading="lazy"><span>Cuello y perfil</span></button>
+        <button class="case" data-i="5" aria-label="Poros"><img src="assets/poros-despues.jpg?v=3" alt="" loading="lazy"><span>Poros</span></button>
       </div>
       <p class="case-note" id="caseNote"></p>
       <p class="fine">* Imágenes tomadas del Instagram del centro. Los resultados varían según cada persona.</p>
     </div>
     <div class="reveal">
-      <div class="ba" id="ba">
-        <img class="ba-after" id="baAfter" src="assets/abdomen-despues.jpg?v=2" alt="Después">
-        <div class="ba-before-wrap" id="baBeforeWrap"><img class="ba-before" id="baBefore" src="assets/abdomen-antes.jpg?v=2" alt="Antes"></div>
-        <span class="lbl l1">Antes</span><span class="lbl l2">Después</span>
-        <div class="ba-handle" id="baHandle"><span>⟷</span></div>
-        <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Comparar antes y después">
+      <div class="ba-box">
+        <div class="ba" id="ba">
+          <div class="ba-bg" id="baBg" style="background-image:url(assets/abdomen-despues.jpg?v=3)"></div>
+          <img class="ba-after" id="baAfter" src="assets/abdomen-despues.jpg?v=3" alt="Después del tratamiento">
+          <div class="ba-before-wrap" id="baBeforeWrap"><img class="ba-before" id="baBefore" src="assets/abdomen-antes.jpg?v=3" alt="Antes del tratamiento"></div>
+          <span class="lbl l1" id="lbl1">Antes</span><span class="lbl l2" id="lbl2">Después</span>
+          <div class="ba-handle" id="baHandle"><span>⟷</span></div>
+          <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Deslizar para comparar antes y después">
+          <button class="ba-nav prev" id="baPrev" aria-label="Caso anterior">‹</button>
+          <button class="ba-nav next" id="baNext" aria-label="Caso siguiente">›</button>
+        </div>
+        <div class="ba-bar">
+          <button class="ba-snap" data-v="100">Antes</button>
+          <span class="ba-count" id="baCount">1 / 6</span>
+          <button class="ba-snap" data-v="0">Después</button>
+        </div>
       </div>
     </div>
   </div>
