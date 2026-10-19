@@ -107,7 +107,7 @@ def head(title, desc, prefix=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{E(title)}</title>
 <meta name="description" content="{E(desc)}">
-<link rel="icon" href="{prefix}assets/lotus.png">
+<link rel="icon" href="{prefix}assets/lotus-saori.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -232,7 +232,7 @@ def service_page(sv):
 
 <section class="sec dark" id="ideal"><div class="wrap two">
   <div class="reveal"><p class="eyebrow gold">Para ti si…</p><h2>Ideal <span class="script">para</span></h2><ul class="ideal">{ideal}</ul></div>
-  <div class="reveal ideal-img"><img src="assets/lotus.png" alt=""><p>“Cada piel necesita un plan a medida.”</p></div>
+  <div class="reveal ideal-img"><img src="assets/lotus-saori.png" alt=""><p>“Cada piel necesita un plan a medida.”</p></div>
 </div></section>
 
 <section class="sec" id="cuidados"><div class="wrap">
@@ -257,7 +257,7 @@ def service_page(sv):
 </div></section>
 
 <section class="cta"><div class="wrap cta-in reveal">
-  <img src="assets/lotus.png" alt="">
+  <img src="assets/lotus-saori.png" alt="">
   <div><h2>¿Lista para <span class="script">redescubrir tu piel?</span></h2><p>Pide tu diagnóstico facial y te aconsejamos sin ningún compromiso. Aquí te ayudamos a cuidar tu piel.</p></div>
   <div class="hero-actions"><a class="btn btn-gold" href="{msg}" target="_blank" rel="noopener">Pedir cita por WhatsApp</a><a class="btn btn-light" href="tel:+34654767332">654 76 73 32</a></div>
 </div></section>
