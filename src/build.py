@@ -279,15 +279,21 @@ def service_page(sv):
 {footer()}
 </body></html>'''
 
+import re, time
+VER = str(int(time.time()))
+def bust(html_text):
+    """Añade ?v=<versión> a los CSS/JS locales para que el navegador no use copias antiguas."""
+    return re.sub(r'(href|src)="((?:[a-z0-9\-]+)\.(?:css|js))"', lambda m: f'{m.group(1)}="{m.group(2)}?v={VER}"', html_text)
+
 def build():
     for sv in SERVICES:
         with open(os.path.join(ROOT, sv["slug"] + ".html"), "w", encoding="utf-8") as f:
-            f.write(service_page(sv))
+            f.write(bust(service_page(sv)))
     # home
     tpl = open(os.path.join(ROOT, "src", "home.tpl.html"), encoding="utf-8").read()
     tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="viewer.css"><link rel="stylesheet" href="reelstyle.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer() + '\n<script src="splash.js"></script>')
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
-        f.write(tpl)
+        f.write(bust(tpl))
     print("ok", len(SERVICES) + 1, "páginas")
 
 if __name__ == "__main__":
