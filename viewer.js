@@ -37,7 +37,7 @@
       // TikTok: portada a pantalla completa y, al pulsar play, se carga el reproductor dentro de la web
       load.classList.add('off');
       tt.classList.add('show');
-      const im = $('img', c); ttImg.src = im ? im.src : '';
+      const im = $('.reel-play img', c); ttImg.src = im ? im.src : '';
       ttOut.href = c.dataset.link;
       tt.querySelector('.rv-play').onclick = () => { tt.classList.remove('show'); play(c); };
     } else {
@@ -58,9 +58,8 @@
   };
 
   cards.forEach(c => {
-    const shield = $('.reel-shield', c), poster = $('.reel-poster', c);
-    if (shield) shield.addEventListener('click', e => { e.preventDefault(); open(c); });
-    if (poster) poster.addEventListener('click', e => { if (e.metaKey || e.ctrlKey) return; e.preventDefault(); open(c); });
+    const btn = $('.reel-play', c);
+    if (btn) btn.addEventListener('click', e => { e.preventDefault(); open(c); });
   });
 
   $('.rv-x', rv).onclick = close;

@@ -32,7 +32,7 @@ REELS = {
     desc="Detrás de este centro hay constancia, mucho esfuerzo y una decisión valiente: dedicarse solo a la estética avanzada."),
 }
 
-HOME = ["ig-diamante", "tt-acne", "ig-rf", "tt-manchas", "ig-diapasones", "tt-hifu", "ig-coctel", "tt-kinesio", "ig-hidrafacial", "tt-antesdespues", "tt-limpieza"]
+HOME = ["ig-diamante", "tt-acne", "ig-rf", "tt-manchas", "ig-diapasones", "tt-hifu", "ig-coctel", "tt-kinesio"]
 
 # Reels que acompañan a cada página de tratamiento
 BY_SERVICE = {

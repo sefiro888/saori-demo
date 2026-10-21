@@ -1,0 +1,89 @@
+/* ============================================================
+   REELS · móviles inclinados, anillo "PLAY REEL", ecualizador
+   ============================================================ */
+.reels-sec{background:radial-gradient(ellipse at 50% 0%,#3d1749,#1b0b22 55%,#0e050f);overflow:hidden;isolation:isolate;color:#fff}
+.reels-sec::before{content:"";position:absolute;left:50%;top:58%;width:min(900px,90vw);height:min(900px,90vw);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(233,196,106,.22),transparent 62%);filter:blur(20px);z-index:-1;animation:glow 7s ease-in-out infinite}
+@keyframes glow{50%{opacity:.6;transform:translate(-50%,-50%) scale(1.08)}}
+.reel-bg-text{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);font:500 clamp(9rem,28vw,26rem)/1 'Cormorant Garamond',serif;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1px rgba(233,196,106,.16);white-space:nowrap;z-index:-1;pointer-events:none;user-select:none}
+.reels-sec .head h2{color:#fff}
+.reels-sec .head .muted{color:#d9c3e6}
+.reels-sec .head .eyebrow{color:var(--gold2)}
+.reels-sec .reels-foot .btn-ghost{border-color:rgba(233,196,106,.6);color:#fff}
+.reels-sec .reels-foot .btn-ghost:hover{background:var(--gold2);color:#2b1230}
+.reels-sec .rail-btn{display:none}
+
+/* fila de reels */
+.reels-sec .reel-row{display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;gap:clamp(24px,3.4vw,52px);padding:26px 24px 12px;overflow:visible;scroll-snap-type:none;cursor:default}
+.reel{flex:none;margin:0;width:min(250px,100%);scroll-snap-align:center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.reels-sec .reel-row .reel:nth-child(even){margin-top:56px}
+.reel.tilt-l{transform:rotate(-3deg)}
+.reel.tilt-r{transform:rotate(3deg)}
+.reel:hover{transform:rotate(0) translateY(-10px)}
+
+/* móvil */
+.reels-sec .phone,.story .phone{position:relative;width:100%;aspect-ratio:auto;border-radius:40px;padding:10px;background:linear-gradient(145deg,#463a4d,#1a0f1f);border:1px solid rgba(233,196,106,.45);box-shadow:0 40px 70px -30px #000,0 0 0 1px rgba(255,255,255,.04) inset;transition:none}
+.reel:hover .phone{transform:none}
+.reels-sec .phone-notch,.story .phone-notch{position:absolute;top:17px;left:50%;transform:translateX(-50%);width:80px;height:19px;border-radius:12px;background:#0e050f;z-index:7;pointer-events:none}
+.reel-play{position:relative;display:block;width:100%;aspect-ratio:9/16;border:0;padding:0;border-radius:31px;overflow:hidden;background:#000;cursor:pointer;color:#fff;text-align:left;font-family:'Montserrat',sans-serif}
+.reel-play img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1),filter .4s}
+.reel-play:hover img{transform:scale(1.07);filter:brightness(.78)}
+.reel-play::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,5,15,.45),transparent 26%,transparent 42%,rgba(14,5,15,.94))}
+.reel-credit{position:absolute;left:20px;top:46px;z-index:6;display:grid;gap:2px;padding:6px 11px;border-radius:14px;background:rgba(14,5,15,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(233,196,106,.3);pointer-events:none;max-width:72%}
+.reel-credit b{font:600 .88rem/1.1 'Cormorant Garamond',serif;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.reel-credit i{font:500 .66rem/1 'Montserrat',sans-serif;font-style:normal;color:var(--gold2);letter-spacing:.04em}
+.reel-ring{position:absolute;left:50%;top:44%;width:96px;height:96px;margin:-48px;z-index:3;display:grid;place-items:center}
+.reel-ring>svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 14s linear infinite}
+.reel-ring text{font:600 10px 'Montserrat',sans-serif;letter-spacing:.2em;fill:#fff}
+.reel-ring i{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#a97a22,#e9c46a);color:#2b1230;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(233,196,106,.6);animation:pulseC 2.4s infinite;transition:transform .3s}
+.reel-ring i svg{width:22px;height:22px;margin-left:3px}
+.reel-play:hover .reel-ring i{transform:scale(1.12)}
+@keyframes pulseC{70%{box-shadow:0 0 0 18px rgba(233,196,106,0)}}
+.reel-eq{position:absolute;right:20px;top:54px;z-index:3;display:flex;gap:3px;align-items:flex-end;height:18px}
+.reel-eq b{width:3px;background:var(--gold2);border-radius:2px;animation:eq 1s ease-in-out infinite}
+.reel-eq b:nth-child(1){height:60%}.reel-eq b:nth-child(2){height:100%;animation-delay:.2s}.reel-eq b:nth-child(3){height:45%;animation-delay:.4s}.reel-eq b:nth-child(4){height:80%;animation-delay:.1s}
+@keyframes eq{50%{transform:scaleY(.35)}}
+.reel-play .reel-meta{position:absolute;left:0;right:0;bottom:0;padding:0 18px 22px;z-index:3;display:grid;gap:6px;text-align:left}
+.reel-meta em{font:600 .6rem/1 'Montserrat',sans-serif;letter-spacing:.2em;text-transform:uppercase;font-style:normal;color:var(--gold2);display:flex;align-items:center;gap:8px}
+.reel-meta .rec{width:7px;height:7px;border-radius:50%;background:#e0476b;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.reel-play .reel-meta strong{font:600 1.15rem/1.1 'Cormorant Garamond',serif;letter-spacing:.02em;text-transform:uppercase}
+.reel-meta small{font-size:.72rem;color:#e6d9ee}
+.reel figcaption{padding:22px 6px 0;display:grid;gap:8px;text-align:center}
+.reel figcaption span{color:#d9c3e6;font-size:.86rem;line-height:1.5}
+.reel-by{font:600 .68rem 'Montserrat',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#cfc0d6}
+.reel-by a{color:var(--gold2);border-bottom:1px solid currentColor;padding-bottom:2px}
+.reel .link-arrow{justify-self:center;font:700 .68rem 'Montserrat',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);border-bottom:1px solid currentColor;padding-bottom:3px}
+.reel .link-arrow:hover,.reel-by a:hover{color:#fff}
+.story-reel .reel{width:min(280px,100%)}
+.story .reel figcaption span{color:#d9c3e6}
+
+/* navegación del carrusel en móvil: tono oscuro */
+.reels-sec .rail-nav button{background:rgba(255,255,255,.07);color:var(--gold2);border-color:rgba(233,196,106,.45);box-shadow:none}
+.reels-sec .rail-count{color:#e8d8f0}
+.reels-sec .rail-dots i{background:rgba(255,255,255,.25)}
+.reels-sec .rail-dots i.on{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.reels-sec .rail-dots{margin-bottom:14px}
+
+@media(max-width:960px){
+  .reels-sec .rail.reel-row{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding:26px calc((100vw - min(74vw,290px))/2) 40px;gap:20px;cursor:grab;-webkit-overflow-scrolling:touch}
+  .reels-sec .rail.reel-row .reel{width:min(74vw,290px)}
+  .reels-sec .reel-row .reel:nth-child(even){margin-top:0}
+  .reel.tilt-l,.reel.tilt-r{transform:none}
+  .reels-sec .reels-grid.reel-row{flex-wrap:wrap;justify-content:center;overflow:visible;padding-inline:18px}
+  .reels-sec .reels-grid.reel-row .reel{width:min(82vw,290px)}
+  .reel-bg-text{font-size:36vw}
+}
+@media(prefers-reduced-motion:reduce){.reel-ring>svg,.reel-eq b,.rec,.reels-sec::before{animation:none}}
+.reels-sec .rail.reel-row,.reels-sec .reels-grid.reel-row{max-width:1120px;margin-inline:auto}
+.reel-play::after{background:linear-gradient(180deg,rgba(14,5,15,.5),transparent 22%,transparent 30%,rgba(14,5,15,.96) 74%)}
+@media(max-width:960px){.reels-sec .rail.reel-row{max-width:none}}
+
+/* ===== visor Instagram: el vídeo llena la pantalla (recorta cabecera y pie del embed) ===== */
+.rv{--W:min(100vw,520px);--vh:calc(var(--W)*1.764)}
+.rv[data-net="ig"] .rv-stage iframe{left:0;right:auto;bottom:auto;width:var(--W);height:calc(var(--W)*1.9);top:calc((100% - var(--vh))/2);transform-origin:50% 0;transform:translateY(-79.4px) scale(1.47)}
+.rv[data-net="ig"] .rv-stage::before,.rv[data-net="ig"] .rv-stage::after{content:"";position:absolute;left:0;right:0;background:#000;z-index:2;pointer-events:none}
+.rv[data-net="ig"] .rv-stage::before{top:0;height:max(0px,calc((100% - var(--vh))/2))}
+.rv[data-net="ig"] .rv-stage::after{bottom:0;height:max(0px,calc((100% - var(--vh))/2))}
+.rv[data-net="ig"] .rv-cap{background:linear-gradient(0deg,rgba(7,2,10,.92),transparent);padding-top:34px}
+.subnav{background:rgba(20,6,26,.94);border-bottom:1px solid rgba(233,196,106,.25)}
+.subnav a{color:#d9c3e6}.subnav a:hover{color:var(--gold2)}

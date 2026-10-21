@@ -118,36 +118,45 @@ def head(title, desc, prefix=""):
 <link rel="stylesheet" href="{prefix}extra.css">
 <link rel="stylesheet" href="{prefix}premium.css">
 <link rel="stylesheet" href="{prefix}viewer.css">
+<link rel="stylesheet" href="{prefix}reelstyle.css">
 </head>'''
 
 
-def reel_card(key):
+def reel_card(key, tilt=""):
     r = R.REELS[key]
     net = "Instagram" if r["net"] == "ig" else "TikTok"
-    if r["net"] == "ig":
-        screen = (f'<div class="reel-skel"><span>{net}</span><i></i></div>'
-                  f'<iframe title="{E(r["title"])}" loading="lazy" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>'
-                  f'<button class="reel-shield" type="button" aria-label="Reproducir: {E(r["title"])}"><span>Ver a pantalla completa</span></button>')
-        attr = f' data-embed="{R.embed(r)}"'
-    else:
-        screen = (f'<a class="reel-poster" href="{R.url(r)}" target="_blank" rel="noopener" aria-label="Ver en TikTok: {E(r["title"])}">'
-                  f'<img src="assets/reels/{key}.jpg" alt="{E(r["title"])}" loading="lazy"><span class="rp-shade"></span>'
-                  f'<span class="rp-play"></span><span class="rp-cta">Ver a pantalla completa</span></a>')
-        attr = ""
-    return f'''<article class="reel"{attr} data-net="{r["net"]}" data-open="{R.embed(r)}" data-link="{R.url(r)}" data-title="{E(r["title"])}">
-      <div class="phone"><div class="phone-notch"></div><div class="phone-screen">{screen}</div></div>
-      <div class="reel-meta"><span class="reel-net n-{r["net"]}">{net}</span><span class="reel-views">▶ {r["views"]}</span>
-        <h3>{E(r["title"])}</h3><p>{E(r["desc"])}</p><a href="{R.url(r)}" target="_blank" rel="noopener">Ver en {net} →</a></div>
-    </article>'''
+    handle = "@esteticasaori" if r["net"] == "ig" else "@esteticarocioguti"
+    uid = "rc" + key.replace("-", "")
+    ring = (f'<span class="reel-ring" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="{uid}" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>'
+            f'<text><textPath href="#{uid}">PLAY REEL · PLAY REEL · PLAY REEL · </textPath></text></svg>'
+            f'<i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></span>')
+    return f'''<figure class="reel {tilt}" data-net="{r["net"]}" data-open="{R.embed(r)}" data-link="{R.url(r)}" data-title="{E(r["title"])}">
+  <div class="phone">
+    <span class="phone-notch" aria-hidden="true"></span>
+    <span class="reel-credit"><b>Saori</b><i>{handle}</i></span>
+    <button type="button" class="reel-play" aria-label="Reproducir el reel: {E(r["title"])}">
+      <img src="assets/reels/{key}.jpg" alt="" loading="lazy">
+      {ring}
+      <span class="reel-eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
+      <span class="reel-meta"><em><i class="rec"></i> Reel · {net}</em><strong>{E(r["title"])}</strong><small>▶ {r["views"]} visualizaciones</small></span>
+    </button>
+  </div>
+  <figcaption><strong class="reel-by">Reel de <a href="{R.url(r)}" target="_blank" rel="noopener">Saori</a></strong><span>{E(r["desc"])}</span>
+    <a class="link-arrow" href="{R.url(r)}" target="_blank" rel="noopener">Ver en {net}</a></figcaption>
+</figure>'''
+
+def tilted(keys):
+    return "".join(reel_card(k, "tilt-l" if i % 2 == 0 else "tilt-r") for i, k in enumerate(keys))
 
 def reels_home():
-    cards = "".join(reel_card(k) for k in R.HOME)
+    cards = tilted(R.HOME)
     return f'''<section class="sec reels-sec" id="reels">
+  <span class="reel-bg-text" aria-hidden="true">REELS</span>
   <div class="wrap">
     <div class="head reveal"><p class="eyebrow">Mírala en acción</p><h2>Nuestros reels <span class="script">más queridos</span></h2>
       <p class="muted">Tratamientos, consejos y mucho cariño por la piel, en vídeo. Desliza y dale al play.</p></div>
   </div>
-  <div class="rail-wrap"><button class="rail-btn prev" aria-label="Anterior">‹</button><div class="rail" id="rail">{cards}</div><button class="rail-btn next" aria-label="Siguiente">›</button></div>
+  <div class="rail-wrap"><button class="rail-btn prev" aria-label="Anterior">‹</button><div class="rail reel-row" id="rail">{cards}</div><button class="rail-btn next" aria-label="Siguiente">›</button></div>
   <div class="wrap reels-foot reveal"><a class="btn btn-ghost" href="https://www.instagram.com/esteticasaori/" target="_blank" rel="noopener">Más en Instagram</a><a class="btn btn-ghost" href="https://www.tiktok.com/@esteticarocioguti" target="_blank" rel="noopener">Más en TikTok</a></div>
 </section>'''
 
@@ -155,10 +164,10 @@ def reels_service(slug, name):
     keys = R.BY_SERVICE.get(slug)
     if not keys:
         return ""
-    cards = "".join(reel_card(k) for k in keys)
-    return f'''<section class="sec reels-sec" id="reels"><div class="wrap">
+    cards = tilted(keys)
+    return f'''<section class="sec reels-sec" id="reels"><span class="reel-bg-text" aria-hidden="true">REELS</span><div class="wrap">
   <div class="head reveal"><p class="eyebrow">Mírala en acción</p><h2>{E(name)} <span class="script">en vídeo</span></h2></div>
-  <div class="reels-grid n{len(keys)}">{cards}</div></div></section>'''
+  <div class="reels-grid reel-row n{len(keys)}">{cards}</div></div></section>'''
 
 def service_page(sv):
     s = sv["slug"]
@@ -276,7 +285,7 @@ def build():
             f.write(service_page(sv))
     # home
     tpl = open(os.path.join(ROOT, "src", "home.tpl.html"), encoding="utf-8").read()
-    tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="viewer.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer() + '\n<script src="splash.js"></script>')
+    tpl = tpl.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="premium.css"><link rel="stylesheet" href="viewer.css"><link rel="stylesheet" href="reelstyle.css">').replace("{{REELS}}", reels_home()).replace("{{HISTORIA}}", reel_card("ig-historia")).replace("{{HEADER}}", header(dark=True)).replace("{{FOOTER}}", footer() + '\n<script src="splash.js"></script>')
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(tpl)
     print("ok", len(SERVICES) + 1, "páginas")
