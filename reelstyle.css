@@ -87,3 +87,17 @@
 .rv[data-net="ig"] .rv-cap{background:linear-gradient(0deg,rgba(7,2,10,.92),transparent);padding-top:34px}
 .subnav{background:rgba(20,6,26,.94);border-bottom:1px solid rgba(233,196,106,.25)}
 .subnav a{color:#d9c3e6}.subnav a:hover{color:var(--gold2)}
+
+/* ===== reproductor dentro del móvil ===== */
+.reel-live{position:absolute;left:10px;right:10px;top:10px;bottom:10px;border-radius:31px;overflow:hidden;background:#000;z-index:6}
+.reel-live iframe{border:0;background:#000;opacity:0;transition:opacity .6s}
+.reel-live iframe.on{opacity:1}
+.rl-load{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .5s}
+.rl-load.off{opacity:0;pointer-events:none}
+.rl-load i{width:38px;height:38px;border-radius:50%;border:2px solid rgba(233,196,106,.25);border-top-color:var(--gold2);animation:spin .9s linear infinite}
+.rl-x{position:absolute;top:44px;right:10px;z-index:3;width:34px;height:34px;border-radius:50%;border:1px solid rgba(233,196,106,.6);background:rgba(14,5,15,.75);color:#fff;font-size:.85rem;cursor:pointer;backdrop-filter:blur(8px)}
+.rl-out{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:3;padding:7px 14px;border-radius:999px;border:1px solid rgba(233,196,106,.55);background:rgba(14,5,15,.7);color:var(--gold2);font:700 .6rem 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;backdrop-filter:blur(8px)}
+.reel.playing{transform:none!important;z-index:5}
+.reel.playing .reel-credit{display:none}
+.reel.playing:hover{transform:none!important}
+.reel-live::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:#000;z-index:2;pointer-events:none}
