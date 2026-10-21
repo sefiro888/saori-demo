@@ -101,7 +101,7 @@ def footer(prefix=""):
 <script src="{prefix}premium.js"></script>
 <script src="{prefix}viewer.js"></script>'''
 
-def head(title, desc, prefix=""):
+def head(title, desc, prefix="", slug=""):
     return f'''<!doctype html>
 <html lang="es">
 <head>
@@ -110,6 +110,24 @@ def head(title, desc, prefix=""):
 <title>{E(title)}</title>
 <meta name="description" content="{E(desc)}">
 <link rel="icon" href="{prefix}assets/lotus-saori.png">
+<meta name="theme-color" content="#1b0b22">
+<link rel="canonical" href="https://sefiro888.github.io/saori-demo/{slug}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Estética Avanzada Saori · Huelva">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="{E(title)}">
+<meta property="og:description" content="{E(desc)}">
+<meta property="og:url" content="https://sefiro888.github.io/saori-demo/{slug}">
+<meta property="og:image" content="https://sefiro888.github.io/saori-demo/assets/og-saori.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo de Estética Avanzada Saori, Huelva">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{E(title)}">
+<meta name="twitter:description" content="{E(desc)}">
+<meta name="twitter:image" content="https://sefiro888.github.io/saori-demo/assets/og-saori.jpg">
+<link rel="apple-touch-icon" href="{prefix}assets/lotus-saori.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -198,7 +216,7 @@ def service_page(sv):
       <div class="reveal"><p class="eyebrow">Lo que debes saber</p><h2>{E(sv["body_title"])}</h2><p class="lead2">{E(sv["body_text"])}</p>{points}</div>
       <div class="reveal photo-card"><img src="assets/{sv["img"]}" alt="{E(sv["name"])}"><span class="photo-tag">{E(sv["name"])}</span></div>
     </div>{('<div class="wrap">'+calc+'</div>') if calc else ''}</section>'''
-    return f'''{head(f"{sv['name']} en Huelva · Estética Avanzada Saori", sv["tagline"])}
+    return f'''{head(f"{sv['name']} en Huelva · Estética Avanzada Saori", sv["tagline"], slug=s + '.html')}
 <body class="page-service">
 {header(dark=True)}
 <main>
