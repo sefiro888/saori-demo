@@ -3,7 +3,6 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
   /* ---------- reels: el escudo táctil deja deslizar el carrusel; un toque activa el vídeo ---------- */
-  $$('.reel-shield').forEach(b => b.addEventListener('click', () => b.closest('.reel').classList.add('live')));
 
   /* ---------- reels: botones, contador y puntos para el móvil ---------- */
   const rail = $('#rail');
