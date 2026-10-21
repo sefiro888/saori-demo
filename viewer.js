@@ -9,28 +9,41 @@
   rv.className = 'rv'; rv.hidden = true; rv.setAttribute('role', 'dialog'); rv.setAttribute('aria-modal', 'true');
   rv.innerHTML =
     '<div class="rv-bg"></div>' +
-    '<div class="rv-stage"><div class="rv-load"><i></i><span>Cargando vídeo…</span></div><iframe title="Vídeo" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>' +
+    '<div class="rv-stage"><div class="rv-load"><i></i><span>Cargando vídeo…</span></div><div class="rv-tt"><img alt=""><span class="rv-shade"></span><button type="button" class="rv-play" aria-label="Reproducir"></button><a class="rv-out" target="_blank" rel="noopener">Abrir en TikTok</a></div><iframe title="Vídeo" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>' +
     '<button class="rv-x" type="button" aria-label="Cerrar">✕</button>' +
     '<button class="rv-nav rv-prev" type="button" aria-label="Anterior">‹</button>' +
     '<button class="rv-nav rv-next" type="button" aria-label="Siguiente">›</button>' +
     '<div class="rv-cap"><b></b><a target="_blank" rel="noopener">¿No se reproduce? Ábrelo en la red →</a></div>';
   document.body.appendChild(rv);
 
-  const frame = $('iframe', rv), cap = $('.rv-cap b', rv), alt = $('.rv-cap a', rv), load = $('.rv-load', rv);
+  const tt = $('.rv-tt', rv), ttImg = $('img', tt), ttOut = $('.rv-out', tt), frame = $('iframe', rv), cap = $('.rv-cap b', rv), alt = $('.rv-cap a', rv), load = $('.rv-load', rv);
   let cur = 0, list = cards;
 
-  const show = i => {
-    cur = (i + list.length) % list.length;
-    const c = list[cur];
+  const play = c => {
     load.classList.remove('off');
     frame.classList.remove('on');
     frame.onload = () => { frame.classList.add('on'); load.classList.add('off'); };
     frame.src = c.dataset.open;
+    setTimeout(() => load.classList.add('off'), 6000);
+  };
+  const show = i => {
+    cur = (i + list.length) % list.length;
+    const c = list[cur];
     cap.textContent = c.dataset.title;
     alt.href = c.dataset.link;
-    // mostrar la red social en el color correspondiente
     rv.dataset.net = c.dataset.net;
-    setTimeout(() => load.classList.add('off'), 6000);
+    frame.classList.remove('on'); frame.src = 'about:blank';
+    if (c.dataset.net === 'tt') {
+      // TikTok: portada a pantalla completa y, al pulsar play, se carga el reproductor dentro de la web
+      load.classList.add('off');
+      tt.classList.add('show');
+      const im = $('img', c); ttImg.src = im ? im.src : '';
+      ttOut.href = c.dataset.link;
+      tt.querySelector('.rv-play').onclick = () => { tt.classList.remove('show'); play(c); };
+    } else {
+      tt.classList.remove('show');
+      play(c);
+    }
   };
   const open = c => {
     // el visor recorre las tarjetas de su misma sección
